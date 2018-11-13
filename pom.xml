@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis</artifactId>
-            <version>3.2.0</version>
+            <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>

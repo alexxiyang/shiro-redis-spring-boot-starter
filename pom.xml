@@ -6,7 +6,7 @@
 
     <groupId>org.crazycake</groupId>
     <artifactId>shiro-redis-spring-boot-starter</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.1</version>
 
     <name>shiro-redis-spring-boot-starter</name>
     <description>spring-boot starter for shiro-redis</description>
@@ -29,6 +29,11 @@
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis</artifactId>
             <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring-boot-web-starter</artifactId>
+            <version>1.4.0-RC2</version>
         </dependency>
     </dependencies>
     <scm>

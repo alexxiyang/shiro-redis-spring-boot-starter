@@ -1,6 +1,13 @@
 package org.crazycake.shiro;
 
+import org.apache.shiro.mgt.SessionsSecurityManager;
+import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionManager;
+import org.apache.shiro.spring.config.web.autoconfigure.ShiroWebAutoConfiguration;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -9,10 +16,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 @Configuration
 @PropertySource("classpath:shiro-redis.properties")
 @EnableConfigurationProperties({RedisManagerProperties.class, CacheManagerProperties.class, RedisSessionDAOProperties.class})
 @ConditionalOnProperty(name = "shiro-redis.enabled", matchIfMissing = true)
+@AutoConfigureBefore({ShiroWebAutoConfiguration.class})
 public class ShiroRedisAutoConfiguration {
 
     @Autowired
@@ -141,7 +151,7 @@ public class ShiroRedisAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public RedisCacheManager cacheManager(IRedisManager redisManager) {
+    public RedisCacheManager redisCacheManager(IRedisManager redisManager) {
         RedisCacheManager cacheManager = new RedisCacheManager();
         cacheManager.setRedisManager(redisManager);
         if (!StringUtils.isEmpty(cacheManagerProperties.getPrincipalIdFieldName())) {
@@ -154,5 +164,22 @@ public class ShiroRedisAutoConfiguration {
             cacheManager.setKeyPrefix(cacheManagerProperties.getKeyPrefix());
         }
         return cacheManager;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public SessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionDAO(redisSessionDAO);
+        return sessionManager;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public SessionsSecurityManager securityManager(List<Realm> realms, SessionManager sessionManager, RedisCacheManager redisCacheManager) {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager(realms);
+        securityManager.setSessionManager(sessionManager);
+        securityManager.setCacheManager(redisCacheManager);
+        return securityManager;
     }
 }

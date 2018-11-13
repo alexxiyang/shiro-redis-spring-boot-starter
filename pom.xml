@@ -8,6 +8,18 @@
     <artifactId>shiro-redis-spring-boot-starter</artifactId>
     <version>3.2.0</version>
 
+    <name>shiro-redis-spring-boot-starter</name>
+    <description>spring-boot starter for shiro-redis</description>
+    <url>https://github.com/alexxiyang/shiro-redis-spring-boot-starter</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -19,6 +31,24 @@
             <version>3.2.0</version>
         </dependency>
     </dependencies>
+    <scm>
+        <connection>scm:git:https://github.com/alexxiyang/shiro-redis-spring-boot-starter.git</connection>
+        <developerConnection>scm:git:https://github.com/alexxiyang/shiro-redis-spring-boot-starter.git</developerConnection>
+        <url>https://github.com/alexxiyang/shiro-redis-spring-boot-starter.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>alexxiyang</id>
+            <name>Alex Yang</name>
+            <email>alexxiyang@gmail.com</email>
+            <timezone>GMT-7</timezone>
+            <organizationUrl>https://github.com/alexxiyang</organizationUrl>
+            <roles>
+            </roles>
+        </developer>
+    </developers>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -31,4 +61,104 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <finalName>shiro-redis-spring-boot-starter</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgument>-nowarn</compilerArgument>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>release</name>
+                    <value>true</value>
+                </property>
+            </activation>
+
+            <properties>
+                <gpg.keyname>D688E942</gpg.keyname>	<!-- GPG Key ID to use for signing -->
+                <release.username>alexxiyang</release.username>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

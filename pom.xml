@@ -6,7 +6,7 @@
 
     <groupId>org.crazycake</groupId>
     <artifactId>shiro-redis-spring-boot-starter</artifactId>
-    <version>3.2.1</version>
+    <version>3.3.1</version>
 
     <name>shiro-redis-spring-boot-starter</name>
     <description>spring-boot starter for shiro-redis</description>
@@ -24,6 +24,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>2.3.3.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.crazycake</groupId>
@@ -33,7 +34,7 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
-            <version>1.4.0-RC2</version>
+            <version>1.6.0</version>
         </dependency>
     </dependencies>
     <scm>
@@ -82,15 +83,15 @@
         <finalName>shiro-redis-spring-boot-starter</finalName>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <encoding>UTF-8</encoding>
-                    <compilerArgument>-nowarn</compilerArgument>
-                </configuration>
-            </plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+					<compilerArgument>-nowarn</compilerArgument>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 
@@ -114,7 +115,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
+                        <version>1.6.8</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -125,7 +126,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
+                        <version>3.2.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -138,7 +139,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
+                        <version>3.2.0</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
